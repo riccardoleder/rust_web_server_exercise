@@ -5,14 +5,12 @@ use crate::http::http_response::{
     generate_redirect_response,
 };
 use crate::http::http_status::HttpMethod;
-use crate::{database, log};
-use std::ascii::AsciiExt;
+use crate::{log, persistance};
 use std::collections::HashMap;
 use std::io::prelude::*;
 use std::io::BufReader;
 use std::net::TcpStream;
 use std::path::Path;
-use std::str::FromStr;
 
 /// Handles a request and generates the correct response as a String
 pub fn handle_request(stream: &TcpStream) -> String {
@@ -118,7 +116,7 @@ pub fn handle_request(stream: &TcpStream) -> String {
 
                 println!("buffer json to write: \r\n{}", json);
 
-                match database::write(&json) {
+                match persistance::write(&json) {
                     Err(_) => return generate_internal_server_error_response(),
                     Ok(_) => return generate_data_response(),
                 }

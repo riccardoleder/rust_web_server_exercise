@@ -1,9 +1,6 @@
-use std::{fs, io, str::FromStr};
-
 use chrono::{DateTime, Utc};
-use serde_json::{Map, Value};
-
-use crate::log;
+use serde_json::Value;
+use std::{fs, io, str::FromStr};
 
 pub const DATA_PATH: &str = "data/data.json";
 
@@ -13,6 +10,7 @@ pub enum DatabaseError {
 }
 
 // TODO: Manage concurrency
+/// Reads all the persisted data
 pub fn read() -> io::Result<Value> {
     let data = match read_raw() {
         Err(e) => return Err(e),
@@ -40,6 +38,7 @@ pub fn read_raw() -> io::Result<Value> {
 }
 
 // TODO: Manage concurrency
+/// Writes persistent data
 pub fn write(json: &Value) -> io::Result<()> {
     let new_mod = Utc::now();
 

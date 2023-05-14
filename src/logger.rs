@@ -1,6 +1,7 @@
 use chrono::Utc;
 use std::{fs, path::Path};
 
+///prints and saves to log information for debugging purposes
 #[macro_export]
 macro_rules! log {
     ($($arg:tt)*) => {

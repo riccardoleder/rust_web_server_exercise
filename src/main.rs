@@ -18,6 +18,8 @@ fn main() {
     save_log(Path::new("data/log.txt"));
 }
 
+/// Listen for "shutdown" command input from the terminal
+/// TODO: improve to manage ctrlc signals
 fn listener() {
     let mut input = String::new();
 
